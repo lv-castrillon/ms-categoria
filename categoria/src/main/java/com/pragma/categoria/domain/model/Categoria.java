@@ -18,7 +18,6 @@ public class Categoria {
     private Integer id;
     @Column(name = "nombre", length = 50, nullable = false)
     private String nombre;
-    @NonNull
     @Column(name = "descripcion", length = 90, nullable = false)
     private String descripcion;
 
