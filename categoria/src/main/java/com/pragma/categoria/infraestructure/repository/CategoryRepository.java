@@ -1,6 +1,6 @@
-package com.pragma.categoria.repository;
+package com.pragma.categoria.infraestructure.repository;
 
-import com.pragma.categoria.model.Categoria;
+import com.pragma.categoria.domain.model.Categoria;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
