@@ -3,13 +3,16 @@ package com.pragma.categoria.domain.service;
 import com.pragma.categoria.domain.impl.CategoriaServiceImpl;
 import com.pragma.categoria.domain.model.Categoria;
 import com.pragma.categoria.infraestructure.repository.CategoriaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class CategoriaService implements CategoriaServiceImpl {
 
-    CategoriaRepository categoriaRepository;
+    @Autowired
+    private CategoriaRepository categoriaRepository;
 
     @Override
     public Categoria crearCategoria(Categoria categoria) {
