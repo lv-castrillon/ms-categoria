@@ -4,12 +4,12 @@ import com.pragma.categoria.domain.impl.CategoriaServiceImpl;
 import com.pragma.categoria.domain.model.Categoria;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/categoria", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -20,12 +20,23 @@ public class CategoriaController {
     private final CategoriaServiceImpl categoriaService;
 
     @PostMapping(path = "/crear-categoria")
-    public ResponseEntity<Categoria> crearCategoria(@RequestBody Categoria body) {
+    public ResponseEntity<String> crearCategoria(@RequestBody Categoria body) {
         Categoria nuevaCategoria = categoriaService.crearCategoria(body);
         if(nuevaCategoria == null) {
+            return ResponseEntity.badRequest().body("No se puede repetir el nombre de categoria!");
+        } else {
+            return ResponseEntity.ok("Categoria creada: " + nuevaCategoria.toString());
+        }
+    }
+
+    @GetMapping(path = "/listar-categoria")
+    public ResponseEntity<List<Categoria>> listarCategoria(@RequestParam String orden, @RequestParam int inicio,
+                                                           @RequestParam int fin) {
+        Page<Categoria> listaCategoria = categoriaService.listarCategorias(orden, inicio, fin);
+        if(listaCategoria == null) {
             return ResponseEntity.badRequest().body(null);
         } else {
-            return ResponseEntity.ok(nuevaCategoria);
+            return ResponseEntity.ok(listaCategoria.getContent());
         }
     }
 
