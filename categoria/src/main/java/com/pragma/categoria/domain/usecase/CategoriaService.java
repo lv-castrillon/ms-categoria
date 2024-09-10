@@ -1,8 +1,10 @@
-package com.pragma.categoria.domain.service;
+package com.pragma.categoria.domain.usecase;
 
+import com.pragma.categoria.domain.enums.ErrorCodes;
+import com.pragma.categoria.domain.exception.CategoryException;
 import com.pragma.categoria.domain.impl.CategoriaServiceImpl;
 import com.pragma.categoria.domain.model.Categoria;
-import com.pragma.categoria.infraestructure.repository.CategoriaRepository;
+import com.pragma.categoria.infraestructure.driven_adapters.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,22 +22,26 @@ public class CategoriaService implements CategoriaServiceImpl {
 
     @Override
     public Categoria crearCategoria(Categoria categoria) {
-        try {
-            List<Categoria> categoriaList = categoriaRepository.findAll();
-            for(Categoria categoriaOnList: categoriaList) {
-                if(categoriaOnList.getNombre().equals(categoria.getNombre())) {
-                    return null;
-                }
-            }
-
-            Categoria nuevaCategoria = new Categoria();
-            nuevaCategoria.setNombre(categoria.getNombre());
-            nuevaCategoria.setDescripcion(categoria.getDescripcion());
-            categoriaRepository.save(nuevaCategoria);
-            return nuevaCategoria;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if (categoria.getDescripcion() == null) {
+            throw new CategoryException(ErrorCodes.CategoryError.DESCRIPTION_NULL);
         }
+
+        List<Categoria> categoriaList = categoriaRepository.findAll();
+        for(Categoria categoriaOnList: categoriaList) {
+            if(categoriaOnList.getNombre().equals(categoria.getNombre())) {
+                throw new CategoryException(ErrorCodes.CategoryError.DUPLICATE_NAMES);
+            }
+        }
+
+        if (categoria.getDescripcion().length() > 90 || categoria.getNombre().length() > 50) {
+            throw new CategoryException(ErrorCodes.CategoryError.DESCRIPTION_NAME_LENGTH);
+        }
+
+        Categoria nuevaCategoria = new Categoria();
+        nuevaCategoria.setNombre(categoria.getNombre());
+        nuevaCategoria.setDescripcion(categoria.getDescripcion());
+        categoriaRepository.save(nuevaCategoria);
+        return nuevaCategoria;
     }
 
     @Override

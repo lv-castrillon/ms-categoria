@@ -1,4 +1,4 @@
-package com.pragma.categoria.infraestructure.controller;
+package com.pragma.categoria.infraestructure.entry_points;
 
 import com.pragma.categoria.domain.impl.CategoriaServiceImpl;
 import com.pragma.categoria.domain.model.Categoria;

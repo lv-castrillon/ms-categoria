@@ -1,9 +1,6 @@
-package com.pragma.categoria.infraestructure.repository;
+package com.pragma.categoria.infraestructure.driven_adapters;
 
 import com.pragma.categoria.domain.model.Categoria;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
