@@ -1,6 +1,6 @@
-package com.pragma.categoria.domain.exception;
+package com.pragma.stock.domain.exception;
 
-import com.pragma.categoria.domain.enums.ErrorCodes;
+import com.pragma.stock.domain.enums.ErrorCodes;
 
 public class CategoryException extends RuntimeException {
 

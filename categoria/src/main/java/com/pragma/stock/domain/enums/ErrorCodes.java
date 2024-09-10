@@ -1,4 +1,4 @@
-package com.pragma.categoria.domain.enums;
+package com.pragma.stock.domain.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
