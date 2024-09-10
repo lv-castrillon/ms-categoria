@@ -1,7 +1,7 @@
-package com.pragma.categoria.infraestructure.entry_points;
+package com.pragma.stock.infraestructure.entry_points;
 
-import com.pragma.categoria.domain.impl.CategoriaServiceImpl;
-import com.pragma.categoria.domain.model.Categoria;
+import com.pragma.stock.domain.impl.CategoriaServiceImpl;
+import com.pragma.stock.domain.model.Categoria;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

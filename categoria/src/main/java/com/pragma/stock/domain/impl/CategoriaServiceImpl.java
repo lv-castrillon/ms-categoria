@@ -1,9 +1,7 @@
-package com.pragma.categoria.domain.impl;
+package com.pragma.stock.domain.impl;
 
-import com.pragma.categoria.domain.model.Categoria;
+import com.pragma.stock.domain.model.Categoria;
 import org.springframework.data.domain.Page;
-
-import java.util.List;
 
 public interface CategoriaServiceImpl {
 

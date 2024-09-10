@@ -1,1 +1,1 @@
-rootProject.name = "categoria"
+rootProject.name = "stock"

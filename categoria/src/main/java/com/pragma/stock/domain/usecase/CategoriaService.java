@@ -1,10 +1,10 @@
-package com.pragma.categoria.domain.usecase;
+package com.pragma.stock.domain.usecase;
 
-import com.pragma.categoria.domain.enums.ErrorCodes;
-import com.pragma.categoria.domain.exception.CategoryException;
-import com.pragma.categoria.domain.impl.CategoriaServiceImpl;
-import com.pragma.categoria.domain.model.Categoria;
-import com.pragma.categoria.infraestructure.driven_adapters.CategoriaRepository;
+import com.pragma.stock.domain.enums.ErrorCodes;
+import com.pragma.stock.domain.exception.CategoryException;
+import com.pragma.stock.domain.impl.CategoriaServiceImpl;
+import com.pragma.stock.domain.model.Categoria;
+import com.pragma.stock.infraestructure.driven_adapters.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
