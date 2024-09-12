@@ -3,6 +3,7 @@ package com.pragma.stock.domain.usecase;
 import com.pragma.stock.domain.enums.ErrorCodes;
 import com.pragma.stock.domain.exception.BrandException;
 import com.pragma.stock.domain.model.Brand;
+import com.pragma.stock.domain.model.Categoria;
 import com.pragma.stock.infraestructure.driven_adapters.BrandRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,5 +105,49 @@ class BrandServiceTest {
                 () -> brandService.createBrand(brandTest2));
 
         Assertions.assertEquals(ex.getMessage(), ErrorCodes.BrandError.DESCRIPTION_NULL.getValue());
+    }
+
+    @Test
+    void listBrandsSuccessful() {
+        List<Brand> brandList = new ArrayList<>();
+        Pageable any = PageRequest.of(0, 2, Sort.by("nombre"));
+        Page<Brand> list = new PageImpl<>(brandList, any, 2);
+
+        Mockito.when(brandRepository.findAll(any)).thenReturn(list);
+
+        Page<Brand> result = brandService.listBrand("any", 0, 2);
+
+        Assertions.assertEquals(result.getTotalElements(), list.getTotalElements());
+    }
+
+    @Test
+    void listBrandsDesc() {
+        List<Brand> brandList = new ArrayList<>();
+        Pageable any = PageRequest.of(0, 2, Sort.by("nombre"));
+        Page<Brand> list = new PageImpl<>(brandList, any, 2);
+
+        Mockito.when(brandRepository.findAll(any)).thenReturn(list);
+
+        Pageable desc = PageRequest.of(0, 2, Sort.by("nombre").descending());
+        Page<Brand> listDesc = new PageImpl<>(brandList, desc, 2);
+
+        Mockito.when(brandRepository.findAll(desc)).thenReturn(listDesc);
+
+        Page<Brand> result = brandService.listBrand("desc", 0, 2);
+
+        Assertions.assertEquals(result.getTotalElements(), listDesc.getTotalElements());
+    }
+
+    @Test
+    void listBrandAsc() {
+        List<Brand> brandList = new ArrayList<>();
+        Pageable any = PageRequest.of(0, 2, Sort.by("nombre").ascending());
+        Page<Brand> list = new PageImpl<>(brandList, any, 2);
+
+        Mockito.when(brandRepository.findAll(any)).thenReturn(list);
+
+        Page<Brand> result = brandService.listBrand("asc", 0, 2);
+
+        Assertions.assertEquals(result.getTotalElements(), list.getTotalElements());
     }
 }

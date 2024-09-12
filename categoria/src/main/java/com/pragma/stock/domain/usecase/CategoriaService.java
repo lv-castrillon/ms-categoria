@@ -46,13 +46,14 @@ public class CategoriaService implements CategoriaServiceImpl {
 
     @Override
     public Page<Categoria> listarCategorias(String orden, int inicio, int fin) {
-        Pageable any = PageRequest.of(inicio, fin, Sort.by("nombre"));
+        String name = "nombre";
+        Pageable any = PageRequest.of(inicio, fin, Sort.by(name));
         Page<Categoria> lista = categoriaRepository.findAll(any);
         if (orden.equals("asc")) {
-            Pageable asc = PageRequest.of(inicio, fin, Sort.by("nombre").ascending());
+            Pageable asc = PageRequest.of(inicio, fin, Sort.by(name).ascending());
             lista = categoriaRepository.findAll(asc);
         } else if (orden.equals("desc")){
-            Pageable desc = PageRequest.of(inicio, fin, Sort.by("nombre").descending());
+            Pageable desc = PageRequest.of(inicio, fin, Sort.by(name).descending());
             lista = categoriaRepository.findAll(desc);
         }
         return lista;
