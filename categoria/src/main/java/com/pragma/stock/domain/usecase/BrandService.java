@@ -6,6 +6,10 @@ import com.pragma.stock.domain.impl.BrandServiceImpl;
 import com.pragma.stock.domain.model.Brand;
 import com.pragma.stock.infraestructure.driven_adapters.BrandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +42,21 @@ public class BrandService implements BrandServiceImpl {
         newBrand.setDescription(brand.getDescription());
         brandRepository.save(newBrand);
         return newBrand;
+    }
+
+    @Override
+    public Page<Brand> listBrand(String order, int begin, int end) {
+        String name = "name";
+        Pageable any = PageRequest.of(begin, end, Sort.by(name));
+        Page<Brand> list = brandRepository.findAll(any);
+        if (order.equals("asc")) {
+            Pageable asc = PageRequest.of(begin, end, Sort.by(name).ascending());
+            list = brandRepository.findAll(asc);
+        } else if (order.equals("desc")){
+            Pageable desc = PageRequest.of(begin, end, Sort.by(name).descending());
+            list = brandRepository.findAll(desc);
+        }
+        return list;
     }
 
 }
